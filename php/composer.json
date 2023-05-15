@@ -1,0 +1,31 @@
+{
+    "name": "php_test/jihwan",
+    "description": "this is my test project. project will use for my php  practice",
+    "autoload": {
+        "psr-4": {
+            "MyApp\\": "src/"}
+        
+    },
+    "authors": [
+        {
+            "name": "jimmy1yoon",
+            "email": "jimmy1.yoon@cheilpengtai.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2-stable",
+        "ext-json": "^7.4-stable", 
+        "monolog/monolog": "^2.0-stable",
+        "php-di/php-di": "^6.1-stable",
+        "predis/predis": "^1.1-stable",
+        "slim/php-view": "^3.0-stable",
+        "slim/psr7": "^1.1-stable",
+        "slim/slim": "^4.5-stable",
+        "symfony/yaml": "^5.2-stable",
+        "zircote/swagger-php": "^3.2",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "scripts": {
+        "serve": "php -S localhost:8081 -t public"
+    }
+}

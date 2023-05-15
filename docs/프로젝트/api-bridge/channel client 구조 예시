@@ -1,0 +1,60 @@
+from apis.client import AbstractClient
+
+from datetime import datetime
+
+class NaverSaClient(AbstractClient) :
+    def channel(cls) -> str: return 'naver-sa'
+    
+    def host(cls) -> str: return 'https://api.searchad.naver.com/ncc'
+    
+    def refresh_token(self, access_token:str) :
+        pass
+    
+    #  @abc.abstractmethod
+    def before_request(self, cnx, cmd:commands, cnf:configure, outs:models.ModelFactory) :
+        timestamp = datetime.now()
+        self.connection.set_headers({
+            'Signature': ...,
+            'X-Timestamp': timestamp,
+        })
+        
+
+    # @abc.abstractmethod
+    def before_response(self, cnx, cmd:commands, cnf:configure, outs:models.ModelFactory) :
+        data = self.cnx.response_json()
+        return data['data']
+    
+    # @abc.abstractmethod
+    def open_connection(self) :
+        self._cnx = Session(self.host(), headers={
+            method: 'GET',
+            'Content-Type': 'application/json; chartset=UTF-8',
+            API_KEY: self.configure['API_KEY'],
+            API_SECRET: self.configure['API_SECRET'],
+            CUSTOMER_ID: self.configure['CUSTOMER_ID'],
+        })
+
+    @property
+    def has_connection(self) :
+        return self._cnx is not None
+    
+    @abc.abstractmethod
+    def close_connection(self) :
+        raise AttributeError('unimplemented')
+
+
+    def get_campaign(self, access_token:str, account_id:str, campaign_id:str, with_children:bool=True, with_info:bool=True, with_insights=False) -> models.campaign_model :
+        # get connection
+        values = self.connection.get('/campaign', campaignId=campaign_id)
+        
+        #
+        account = self.outs.set_account(values['customerId'])
+        campaign = self.outs.set_campaign(values['campaignTp'])
+        
+        # adgroup 목록
+        if with_children :
+            adgroups = []
+            ...
+            campaign.add(*adgroups)
+        
+        

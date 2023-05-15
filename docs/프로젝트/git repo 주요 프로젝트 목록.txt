@@ -1,0 +1,10 @@
+2. hub-campaigns : hub-campaigns 프로젝트 
+
+4. pdo-magic : PDO-Magic 
+	
+5. php-api-rest : api 테스트
+
+6. atd-models : MVC 모델의 Model-part
+
+trait.php 란 자주 사용하는 함수들을 따로 빼놓은 것이다.
+
